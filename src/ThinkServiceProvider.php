@@ -28,7 +28,10 @@ class ThinkServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/lenovo-think.php', 'lenovo-think-iot');
 
-        $this->app->singleton(ThinkManage::class);
+         $this->app->singleton(ThinkManage::class, function ($app) {
+            $config = $app['config']['lenovo-think-iot'] ?? null;
+            return new ThinkManage($config);
+        });
 
         $this->app->alias(ThinkManage::class, 'thinkiot');
     }
