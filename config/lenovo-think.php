@@ -4,9 +4,9 @@ return [
 
     'auth' => [
 
-        'appkey' => '3FcSM76ogS6CMwu0q10H2JCD47Q5nD',
+        'appkey' => '',
 
-        'custid' => '3071442380713734',
+        'custid' => '',
     ],
 
     'gateway_url' => 'http://thinkiotapi.lenovo.com/httpOpenServer/serviceProvide'

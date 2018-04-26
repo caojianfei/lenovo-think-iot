@@ -44,11 +44,11 @@ class ThinkManage implements ThinkIot
      * @param Client $http
      * @throws InvalidArgumentException
      */
-    public function __construct($config = null, Client $http)
+    public function __construct($config = null)
     {
         $this->resolveConfig($config);
 
-        $this->http = $http;
+        $this->http = new Client();
     }
 
     /**

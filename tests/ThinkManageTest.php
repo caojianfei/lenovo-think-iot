@@ -8,10 +8,12 @@ class ThinkManageTest extends TestCase
 {
     protected $iccid = '89860617030000099971';
 
-
-    public function testCanCreateManage()
+    /**
+     * @depends testCanLoadConfig
+     */
+    public function testCanCreateManage(array $config): \CJF\ThinkIot\ThinkManage
     {
-        $manage = new \CJF\ThinkIot\ThinkManage(null, new \GuzzleHttp\Client());
+        $manage = new \CJF\ThinkIot\ThinkManage($config);
 
         $this->assertInstanceOf(
             \CJF\ThinkIot\ThinkManage::class,
@@ -19,6 +21,20 @@ class ThinkManageTest extends TestCase
         );
 
         return $manage;
+    }
+
+    public function testCanLoadConfig(): array
+    {
+        $config = require __DIR__ . '/../config/lenovo-think.php';
+
+        $this->assertTrue(is_array($config));
+
+        $this->assertTrue(!empty($config['auth'])
+            && !empty($config['auth']['appkey'])
+            && !empty($config['auth']['custid'])
+            && !empty($config['gateway_url']));
+
+        return $config;
     }
 
     /**
@@ -34,10 +50,6 @@ class ThinkManageTest extends TestCase
         );
 
         $this->assertJson($result->getOriginInfo());
-
-        $this->assertArrayHasKey('respCode', $result->getResultInfo());
-
-        $this->assertArrayHasKey('respDesc', $result->getResultInfo());
     }
 
     /**
@@ -50,17 +62,6 @@ class ThinkManageTest extends TestCase
         $this->assertInstanceOf(\CJF\ThinkIot\Results\QueryCardInfoResult::class, $result);
 
         $this->assertJson($result->getOriginInfo());
-
-        $this->assertArrayHasKey('respCode', $result->getResultInfo());
-
-        $this->assertArrayHasKey('respDesc', $result->getResultInfo());
     }
 
-    /**
-     * @depends testCanCreateManage
-     */
-    public function testCardChangeInfo(\CJF\ThinkIot\ThinkManage $manage)
-    {
-
-    }
 }
