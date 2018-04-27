@@ -24,7 +24,7 @@ class QueryCardInfoResult extends BaseResult
             $new_card_info[strtolower($key)] = $val;
         }
 
-        $result['cardInfo'] = $new_card_info;
+        $result['resultInfo']['cardInfo'] = $new_card_info;
 
         $this->result = $result;
     }
