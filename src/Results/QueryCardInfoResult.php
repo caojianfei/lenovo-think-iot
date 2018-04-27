@@ -10,6 +10,25 @@ class QueryCardInfoResult extends BaseResult
 {
     protected $cardInfo;
 
+    public function __construct(string $reult)
+    {
+        parent::__construct($reult);
+
+        $result = $this->result;
+
+        $card_info = $result['resultInfo']['cardInfo'];
+
+        $new_card_info = [];
+
+        foreach ($card_info as $key => $val) {
+            $new_card_info[strtolower($key)] = $val;
+        }
+
+        $result['cardInfo'] = $new_card_info;
+
+        $this->result = $result;
+    }
+
     /**
      * @return Card
      * @throws LogicException
