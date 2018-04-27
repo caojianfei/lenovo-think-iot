@@ -14,19 +14,21 @@ class QueryCardInfoResult extends BaseResult
     {
         parent::__construct($reult);
 
-        $result = $this->result;
+        if ($this->success()) {
+            $result = $this->result;
 
-        $card_info = $result['resultInfo']['cardInfo'];
+            $card_info = $result['resultInfo']['cardInfo'];
 
-        $new_card_info = [];
+            $new_card_info = [];
 
-        foreach ($card_info as $key => $val) {
-            $new_card_info[strtolower($key)] = $val;
+            foreach ($card_info as $key => $val) {
+                $new_card_info[strtolower($key)] = $val;
+            }
+
+            $result['resultInfo']['cardInfo'] = $new_card_info;
+
+            $this->result = $result;
         }
-
-        $result['resultInfo']['cardInfo'] = $new_card_info;
-
-        $this->result = $result;
     }
 
     /**
