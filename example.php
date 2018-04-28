@@ -118,11 +118,5 @@ $manage = new \CJF\ThinkIot\ThinkManage($config);
 
 //$manage->batchQueryFlowInfo($iccids);
 
-//$manage->queryPoolInfo('6781514010000144');
-
-//$manage->batchQueryCardInfos($iccids);
-
-//$manage->querySimRetailPackage($iccids[0]);
-
 
 
