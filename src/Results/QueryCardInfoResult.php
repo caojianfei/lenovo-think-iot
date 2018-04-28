@@ -10,26 +10,6 @@ class QueryCardInfoResult extends BaseResult
 {
     protected $cardInfo;
 
-    public function __construct(string $reult)
-    {
-        parent::__construct($reult);
-
-        if ($this->success()) {
-            $result = $this->result;
-
-            $card_info = $result['resultInfo']['cardInfo'];
-
-            $new_card_info = [];
-
-            foreach ($card_info as $key => $val) {
-                $new_card_info[strtolower($key)] = $val;
-            }
-
-            $result['resultInfo']['cardInfo'] = $new_card_info;
-
-            $this->result = $result;
-        }
-    }
 
     /**
      * @return Card
@@ -41,6 +21,6 @@ class QueryCardInfoResult extends BaseResult
             throw new LogicException('operation fails, there is no info');
         }
 
-        return new Card($this->getResultInfo()['cardInfo']);
+        return new Card($this->getResultInfo()['card_info']['data'][0]);
     }
 }

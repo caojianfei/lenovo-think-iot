@@ -62,7 +62,7 @@ class ThinkManage implements ThinkIot
     {
         $server_name = 'Lao.base.editCardInfo.change';
 
-        $result = $this->request(compact('iccid', $simCardStatu), $server_name);
+        $result = $this->request(compact('iccid', 'simCardStatu'), $server_name);
 
         return new EditCardInfoResult($result);
     }
@@ -409,10 +409,13 @@ class ThinkManage implements ThinkIot
     protected function request(array $businessParams, string $serverName)
     {
         $param = $this->makeParam($businessParams, $serverName);
+        //dd($param);
 
         $gateway = $this->config['gateway_url'] ?? 'http://thinkiotapi.lenovo.com/httpOpenServer/serviceProvide';
 
         $request_url = $gateway . '?' . http_build_query($param);
+
+        //dump($request_url);
 
         $response = $this->http->get($request_url, ['verify' => false]);
 
