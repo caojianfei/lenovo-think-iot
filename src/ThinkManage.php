@@ -5,19 +5,26 @@ namespace CJF\ThinkIot;
 use CJF\ThinkIot\Contracts\ThinkIot;
 use CJF\ThinkIot\Expections\InvalidArgumentException;
 use CJF\ThinkIot\Results\BatchEditCardInfoResult;
+use CJF\ThinkIot\Results\BatchQueryCardInfosResult;
+use CJF\ThinkIot\Results\BatchQueryFlowInfoResult;
 use CJF\ThinkIot\Results\CardChangeInfoResult;
 use CJF\ThinkIot\Results\CreateAccountInfoResult;
 use CJF\ThinkIot\Results\DayFlowQueryResult;
 use CJF\ThinkIot\Results\DayPoolFlowQueryResult;
 use CJF\ThinkIot\Results\EditCardInfoResult;
 use CJF\ThinkIot\Results\EventPackageToCardResult;
+use CJF\ThinkIot\Results\Infos\BatchCardFlow;
+use CJF\ThinkIot\Results\Infos\PoolCards;
 use CJF\ThinkIot\Results\MouthFlowQueryResult;
 use CJF\ThinkIot\Results\MouthPoolFlowQueryResult;
 use CJF\ThinkIot\Results\QueryBasicTraiffPlanResult;
 use CJF\ThinkIot\Results\QueryCardInfoResult;
 use CJF\ThinkIot\Results\QueryCustomerTraiffResaleStatusResult;
 use CJF\ThinkIot\Results\QueryFlowInfoResult;
+use CJF\ThinkIot\Results\QueryPoolInfoResult;
 use CJF\ThinkIot\Results\QueryPoolListByCustomer;
+use CJF\ThinkIot\Results\QuerySimBasicPackageInfo;
+use CJF\ThinkIot\Results\QuerySimRetailPackageResult;
 use CJF\ThinkIot\Results\SendSmsByPhoneResult;
 use CJF\ThinkIot\Results\SmsSendingResult;
 use CJF\ThinkIot\Results\SuperpositionPackageToPoolResult;
@@ -62,7 +69,7 @@ class ThinkManage implements ThinkIot
     {
         $server_name = 'Lao.base.editCardInfo.change';
 
-        $result = $this->request(compact('iccid', $simCardStatu), $server_name);
+        $result = $this->request(compact('iccid', 'simCardStatu'), $server_name);
 
         return new EditCardInfoResult($result);
     }
@@ -357,6 +364,94 @@ class ThinkManage implements ThinkIot
     }
 
     /**
+     * TODO 未开放
+     * 批量获取流量查询
+     *
+     * @param $iccids
+     * @return BatchQueryFlowInfoResult
+     */
+    public function batchQueryFlowInfo($iccids): BatchQueryFlowInfoResult
+    {
+        if (is_array($iccids)) {
+            $iccids = implode(',', $iccids);
+        }
+
+        $server_name = 'Lao.base.flow.batchQueryFlowInfo';
+
+        $result = $this->request(['iccidList' => $iccids], $server_name);
+
+        return new BatchQueryFlowInfoResult($result);
+    }
+
+    /**
+     * TODO 未开放
+     * 流量池成员查询
+     *
+     * @param string $poolId
+     * @return QueryPoolInfoResult
+     */
+    public function queryPoolInfo(string $poolId): QueryPoolInfoResult
+    {
+        $server_name = 'Lao.base.pool.queryPoolInfo';
+
+        $result = $this->request(compact('poolId'), $server_name);
+
+        return new QueryPoolInfoResult($result);
+    }
+
+    /**
+     * TODO 未开放
+     * 批量获取单卡信息
+     *
+     * @param $iccids
+     * @return BatchQueryCardInfosResult
+     */
+    public function batchQueryCardInfos($iccids): BatchQueryCardInfosResult
+    {
+        if (is_array($iccids)) {
+            $iccids = implode(',', $iccids);
+        }
+
+        $server_name = 'Lao.base.card.batchQueryCardInfos';
+
+        $result = $this->request(['iccidList' => $iccids], $server_name);
+
+        return new BatchQueryCardInfosResult($result);
+    }
+
+    /**
+     * TODO 未开放
+     * 获取指定SIM卡的资费套餐信息
+     *
+     * @param string $iccid
+     * @return QuerySimBasicPackageInfo
+     */
+    public function querySimBasicPackageInfo(string $iccid): QuerySimBasicPackageInfo
+    {
+        $server_name = 'Lao.base.card.querySimBasicPackageInfo';
+
+        $result = $this->request(compact('iccid'), $server_name);
+
+        return new QuerySimBasicPackageInfo($result);
+    }
+
+    /**
+     * TODO 未开放
+     * 获取指定SIM卡的零售资费套餐
+     *
+     * @param string $iccid
+     * @return QuerySimRetailPackageResult
+     */
+    public function querySimRetailPackage(string $iccid): QuerySimRetailPackageResult
+    {
+        $server_name = 'Lao.base.card.querySimRetailPackage';
+
+        $result = $this->request(compact('iccid'), $server_name);
+
+        return new  QuerySimRetailPackageResult($result);
+    }
+
+    /**
      * 解析配置
      *
      * @param $config
@@ -409,10 +504,13 @@ class ThinkManage implements ThinkIot
     protected function request(array $businessParams, string $serverName)
     {
         $param = $this->makeParam($businessParams, $serverName);
+        //dd($param);
 
         $gateway = $this->config['gateway_url'] ?? 'http://thinkiotapi.lenovo.com/httpOpenServer/serviceProvide';
 
         $request_url = $gateway . '?' . http_build_query($param);
+
+        //dump($request_url);
 
         $response = $this->http->get($request_url, ['verify' => false]);
 

@@ -3,24 +3,24 @@
 namespace CJF\ThinkIot\Results;
 
 
-use CJF\ThinkIot\Results\Infos\Card;
 use CJF\ThinkIot\Expections\LogicException;
+use CJF\ThinkIot\Results\Infos\PoolCards;
 
-class QueryCardInfoResult extends BaseResult
+class QueryPoolInfoResult extends BaseResult
 {
-    protected $cardInfo;
-
-
     /**
-     * @return Card
+     * @return PoolCards
      * @throws LogicException
      */
-    public function getCardInfo(): Card
+    public function getPoolCards(): PoolCards
     {
         if (!$this->success()) {
             throw new LogicException('operation fails, there is no info');
         }
 
-        return new Card($this->getResultInfo()['card_info']['data'][0]);
+        $cards = $this->getResultInfo()['poolList'];
+
+        return new PoolCards($cards);
     }
+
 }

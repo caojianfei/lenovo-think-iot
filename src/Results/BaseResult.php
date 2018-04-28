@@ -51,31 +51,50 @@ abstract class BaseResult implements Result
     public function __construct(string $reult)
     {
         $this->originResult = $reult;
-        $this->result = json_decode($this->originResult, true);
+        $this->result = $this->formatResult(json_decode($this->originResult, true));
     }
 
-
+    /**
+     * 获取接口返回原始数据
+     *
+     * @return string
+     */
     public function getOriginInfo(): string
     {
         return $this->originResult;
     }
 
+    /**
+     * 获取接口返回数据中的 result info
+     *
+     * @return array
+     */
     public function getResultInfo(): array
     {
-        return $this->result['resultInfo'];
+        return $this->result['result_info'];
     }
 
+    /**
+     * 获取结果码
+     *
+     * @return string
+     */
     public function getRespCode(): string
     {
-        return $this->result['resultInfo']['respCode'];
+        return $this->result['result_info']['resp_code'];
     }
 
+    /**
+     * 获取结果描述
+     *
+     * @return string
+     */
     public function getRespDesc(): string
     {
         $code = $this->getRespCode();
 
-        if (!empty($this->result['resultInfo']['respDesc'])) {
-            return  $this->result['resultInfo']['respDesc'];
+        if (!empty($this->result['result_info']['resp_desc'])) {
+            return  $this->result['result_info']['resp_desc'];
         }
 
         if (isset($this->errorCode[$code])) {
@@ -85,9 +104,43 @@ abstract class BaseResult implements Result
         return 'unknown error';
     }
 
+    /**
+     * 判断接口请求是否成功
+     *
+     * @return bool
+     */
     public function success()
     {
         return $this->getRespCode() === '0000' ? true : false;
+    }
+
+    /**
+     * 统一返回结果格式为小写加下划线格式
+     *
+     * @param $result
+     * @return array
+     */
+    protected function formatResult($result)
+    {
+        $format = [];
+
+        foreach ($result as $key => $val) {
+            if (is_string($key)) {
+                if (strpos($key, '_')) {
+                    $key = strtolower($key);
+                } else {
+                    $key = snake_case($key);
+                }
+            }
+
+            if (is_array($val)) {
+                $val = $this->formatResult($val);
+            }
+
+            $format[$key] = $val;
+        }
+
+        return $format;
     }
 
 }
