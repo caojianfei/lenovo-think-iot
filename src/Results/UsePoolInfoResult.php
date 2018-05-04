@@ -18,7 +18,7 @@ class UsePoolInfoResult extends BaseResult
             throw new LogicException('operation fails, there is no info');
         }
 
-        return new Poll($this->getResultInfo()['poolInfo']);
+        return new Poll($this->getResultInfo()['pool_info']);
     }
 
 }
