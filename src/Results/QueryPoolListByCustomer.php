@@ -19,7 +19,7 @@ class QueryPoolListByCustomer extends BaseResult
             throw new LogicException('operation fails, there is no info');
         }
 
-        $poll_list = $this->getResultInfo()['poolList']['poolList'];
+        $poll_list = $this->getResultInfo()['pool_list']['pool_list'];
 
         return new PollList($poll_list);
     }

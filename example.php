@@ -117,6 +117,3 @@ $manage = new \CJF\ThinkIot\ThinkManage($config);
 
 
 //$manage->batchQueryFlowInfo($iccids);
-
-
-
