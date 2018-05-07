@@ -14,8 +14,8 @@ class QueryBasicTraiffPlanResult extends BaseResult
         parent::__construct($reult);
 
         if ($this->success()) {
-            $basicPackageList = $this->result['resultInfo']['basicPackageList'];
-            $this->result['resultInfo']['basicPackageList'] = Helper::listKeyToLower($basicPackageList);
+            $basicPackageList = $this->result['result_info']['basic_package_list'];
+            $this->result['result_info']['basic_package_list'] = Helper::listKeyToLower($basicPackageList);
         }
     }
 
@@ -29,7 +29,7 @@ class QueryBasicTraiffPlanResult extends BaseResult
             throw new LogicException('operation fails, there is no info');
         }
 
-        return new BasicPackageList($this->getResultInfo()['basicPackageList']);
+        return new BasicPackageList($this->getResultInfo()['basic_package_list']);
     }
 
 }

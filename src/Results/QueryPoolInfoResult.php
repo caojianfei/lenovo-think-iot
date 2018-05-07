@@ -18,7 +18,7 @@ class QueryPoolInfoResult extends BaseResult
             throw new LogicException('operation fails, there is no info');
         }
 
-        $cards = $this->getResultInfo()['poolList'];
+        $cards = $this->getResultInfo()['pool_list'];
 
         return new PoolCards($cards);
     }

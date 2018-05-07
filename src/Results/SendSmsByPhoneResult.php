@@ -10,8 +10,8 @@ class SendSmsByPhoneResult extends BaseResult
      */
     public function getSmsSendInfo()
     {
-        if (isset($this->getResultInfo()['smsSendInfo'])) {
-            return json_decode($this->getResultInfo()['smsSendInfo']);
+        if (isset($this->getResultInfo()['sms_send_info'])) {
+            return json_decode($this->getResultInfo()['sms_send_info']);
         }
 
         return null;

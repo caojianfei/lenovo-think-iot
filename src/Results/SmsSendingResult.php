@@ -13,7 +13,7 @@ class SmsSendingResult extends BaseResult
         if (!$this->success()) {
             return null;
         }
-        return $this->getResultInfo()['smsId'];
+        return $this->getResultInfo()['sms_id'];
     }
 
     /**
@@ -24,7 +24,7 @@ class SmsSendingResult extends BaseResult
         if (!$this->success()) {
             return null;
         }
-        return $this->getResultInfo()['sendSmsTag'];
+        return $this->getResultInfo()['send_sms_tag'];
     }
 
 }

@@ -18,7 +18,7 @@ class BatchQueryFlowInfoResult extends BaseResult
             throw new LogicException('operation fails, there is no info');
         }
 
-        $card_flow_list = $this->getResultInfo()['cardList'];
+        $card_flow_list = $this->getResultInfo()['card_list'];
 
         return new BatchCardFlow($card_flow_list);
     }

@@ -14,8 +14,8 @@ class QueryCustomerTraiffResaleStatusResult extends BaseResult
         parent::__construct($reult);
 
         if ($this->success()) {
-            $retailPackageList = $this->result['resultInfo']['retailPackageList'];
-            $this->result['resultInfo']['retailPackageList'] = Helper::listKeyToLower($retailPackageList);
+            $retailPackageList = $this->result['result_info']['retail_package_list'];
+            $this->result['result_info']['retail_package_list'] = Helper::listKeyToLower($retailPackageList);
         }
     }
 
@@ -29,7 +29,7 @@ class QueryCustomerTraiffResaleStatusResult extends BaseResult
             throw new LogicException('operation fails, there is no info');
         }
 
-        return new RetailPackageList($this->getResultInfo()['retailPackageList']);
+        return new RetailPackageList($this->getResultInfo()['retail_package_list']);
     }
 
 }
