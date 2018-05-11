@@ -6,6 +6,12 @@
 ```
 composer install caojianfei/lenovo-think-iot
 ```
+由于目前没有发布稳定版本，需要手动在`composer.json`文件的`require`中指定，像这样：
+```
+"require": {
+    "caojianfei/lenovo-think-iot": "dev-master"
+}
+```
 
 ## 配置
 
