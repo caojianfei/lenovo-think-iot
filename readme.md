@@ -1,6 +1,6 @@
 # 联想 THINKIOT API 2.0 sdk
 
-此扩展是联想 THINKIOT API 2.0 的 SDK，可以方便的在 Laravel 中集成。
+此扩展是联想 THINKIOT API 2.0 的 SDK，可以方便的在 Laravel 中集成。由于联想懂得的相关接口还没有稳定，所以暂时没有稳定版本发布。
 
 ## 安装
 ```

@@ -3,8 +3,8 @@
 return [
 
     'auth' => [
-        'appkey' => env('APPKEY', ''),
-        'custid' => env('CUSTID', ''),
+        'appkey' => 'your app key',
+        'custid' => 'your app custid'
     ],
 
     'gateway_url' => 'http://thinkiotapi.lenovo.com/httpOpenServer/serviceProvide'

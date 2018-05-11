@@ -187,7 +187,7 @@ interface ThinkIot
     public function dayPoolFlowQuery(
         string $custId,
         string $queryDate,
-        string $poolId = null): DayPoolFlowQueryResult;
+        string $poolId): DayPoolFlowQueryResult;
 
     /**
      * 流量池月流量查询
@@ -200,6 +200,6 @@ interface ThinkIot
     public function mouthPoolFlowQuery(
         string $custId,
         string $queryDate,
-        string $poolId = null): MouthPoolFlowQueryResult;
+        string $poolId): MouthPoolFlowQueryResult;
 
 }

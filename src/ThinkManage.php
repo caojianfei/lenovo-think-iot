@@ -125,7 +125,7 @@ class ThinkManage implements ThinkIot
      *
      * @param string $iccid
      * @param string $goodsReleaseId 商品发布ID
-     * @param string $TradeTypeCode  订单类型
+     * @param string $TradeTypeCode 订单类型
      * @return EventPackageToCardResult
      */
     public function eventPackageToCard(string $iccid, string $goodsReleaseId, string $TradeTypeCode = '80'): EventPackageToCardResult
@@ -334,7 +334,7 @@ class ThinkManage implements ThinkIot
     public function dayPoolFlowQuery(
         string $custId,
         string $queryDate,
-        string $poolId = null): DayPoolFlowQueryResult
+        string $poolId): DayPoolFlowQueryResult
     {
         $server_name = 'Lao.base.pool.dayPoolFlowQuery';
 
@@ -354,7 +354,7 @@ class ThinkManage implements ThinkIot
     public function mouthPoolFlowQuery(
         string $custId,
         string $queryDate,
-        string $poolId = null): MouthPoolFlowQueryResult
+        string $poolId): MouthPoolFlowQueryResult
     {
         $server_name = 'Lao.base.pool.mouthPoolFlowQuery';
 
@@ -459,7 +459,7 @@ class ThinkManage implements ThinkIot
      */
     protected function resolveConfig($config)
     {
-        if (! $config) {
+        if (!$config) {
             $config = __DIR__ . '/../config/lenovo-think.php';
         }
 
@@ -504,13 +504,10 @@ class ThinkManage implements ThinkIot
     protected function request(array $businessParams, string $serverName)
     {
         $param = $this->makeParam($businessParams, $serverName);
-        //dd($param);
 
         $gateway = $this->config['gateway_url'] ?? 'http://thinkiotapi.lenovo.com/httpOpenServer/serviceProvide';
 
         $request_url = $gateway . '?' . http_build_query($param);
-
-        //dump($request_url);
 
         $response = $this->http->get($request_url, ['verify' => false]);
 
@@ -531,10 +528,10 @@ class ThinkManage implements ThinkIot
     protected function makeParam(array $businessParams, string $serverName)
     {
         $sys = [
-            'appKey'     => $this->config['auth']['appkey'],
-            'custId'     => $this->config['auth']['custid'],
+            'appKey' => $this->config['auth']['appkey'],
+            'custId' => $this->config['auth']['custid'],
             'serverName' => $serverName,
-            'randomId'   => Helper::generateRandomId(),
+            'randomId' => Helper::generateRandomId(),
         ];
 
         $param = array_merge($sys, $businessParams);
